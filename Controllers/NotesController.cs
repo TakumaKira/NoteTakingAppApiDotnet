@@ -85,14 +85,11 @@ namespace NoteTakingAppApiDotnet.Controllers
         [HttpPost]
         public async Task<ActionResult<Note>> PostNote(Note note)
         {
-          if (_context.Note == null)
-          {
-              return Problem("Entity set 'NotesContext.Note'  is null.");
-          }
             _context.Note.Add(note);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetNote", new { id = note.Id }, note);
+            //    return CreatedAtAction("GetNote", new { id = note.Id }, note);
+            return CreatedAtAction(nameof(GetNote), new { id = note.Id }, note);
         }
 
         // DELETE: api/Notes/5
